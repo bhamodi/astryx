@@ -16,7 +16,7 @@
  *
  * The transform is import-aware and only touches components imported from
  * @xds/core or @xds/core/{Selector,MultiSelector}. It intentionally skips
- * legacy @xds/core selectors, where JSX children are selector items.
+ * legacy @acme/legacy selectors, where JSX children are selector items.
  */
 
 export const meta = {
