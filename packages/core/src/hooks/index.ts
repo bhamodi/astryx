@@ -44,7 +44,7 @@ export type {
 export {useImageMode} from './useImageMode';
 export type {ImageSampleRegion, UseImageModeOptions} from './useImageMode';
 
-export {useClickableContainer} from './useClickableContainer';
+export {useClickableContainer, INTERACTIVE_SELECTORS} from './useClickableContainer';
 export type {
   UseClickableContainerOptions,
   ClickableContainerResult,
