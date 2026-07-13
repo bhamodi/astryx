@@ -46,9 +46,7 @@ describe('TopNav', () => {
   });
 
   it('renders heading slot content', () => {
-    render(
-      <TopNav heading={<span data-testid="title-content">Logo</span>} />,
-    );
+    render(<TopNav heading={<span data-testid="title-content">Logo</span>} />);
     expect(screen.getByTestId('title-content')).toBeInTheDocument();
   });
 
@@ -243,7 +241,9 @@ describe('TopNavHeading', () => {
     });
 
     it('names a logo-only link via logoLabel', () => {
-      render(<TopNavHeading logo={logo} headingHref="/home" logoLabel="Home" />);
+      render(
+        <TopNavHeading logo={logo} headingHref="/home" logoLabel="Home" />,
+      );
       expect(screen.getByRole('link', {name: 'Home'})).toHaveAttribute(
         'href',
         '/home',
@@ -295,9 +295,7 @@ describe('TopNavItem', () => {
   });
 
   it('renders children instead of label when provided', () => {
-    render(
-      <TopNavItem label="Accessible name">Custom content</TopNavItem>,
-    );
+    render(<TopNavItem label="Accessible name">Custom content</TopNavItem>);
     expect(screen.getByText('Custom content')).toBeInTheDocument();
   });
 
