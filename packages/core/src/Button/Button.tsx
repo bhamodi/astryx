@@ -15,11 +15,12 @@
  * - /apps/storybook/stories/Button.stories.tsx (storybook stories)
  * - /packages/cli/templates/blocks/components/Button/ (showcase blocks)
  *
- * Last synced props: label, variant, size, isDisabled, isLoading, isInterruptible, clickAction, icon, isIconOnly, children, tooltip, endContent, href, as, target, rel
+ * Last synced props: label, variant, size, isDisabled, isLoading, isInterruptible, clickAction, icon, isIconOnly, width, children, tooltip, endContent, href, as, target, rel
  */
 
 import {useRef, useTransition, type ReactNode} from 'react';
 import type {BaseProps} from '../BaseProps';
+import type {SizeValue} from '../utils/types';
 import * as stylex from '@stylexjs/stylex';
 import {useTooltip} from '../Tooltip/useTooltip';
 import {
@@ -128,6 +129,12 @@ const styles = stylex.create({
   link: {
     textDecoration: 'none',
   },
+});
+
+// Dynamic style for the consumer-controlled button width. Numbers are treated
+// as pixels by StyleX; strings (e.g. '100%') are used as-is.
+const dynamicStyles = stylex.create({
+  width: (width: SizeValue | null) => ({width}),
 });
 
 const sizeStyles = stylex.create({
@@ -342,6 +349,12 @@ export interface ButtonProps extends BaseProps<HTMLButtonElement> {
    */
   isIconOnly?: boolean;
   /**
+   * Width of the button. Numbers are treated as pixels, strings are used as-is
+   * (e.g. `'100%'` for a full-width button). By default the button sizes to
+   * its content.
+   */
+  width?: SizeValue;
+  /**
    * Optional visible content. When provided, rendered instead of `label` as the
    * visible text (label still serves as the accessible name via aria-label).
    */
@@ -548,6 +561,7 @@ const groupStyles = stylex.create({
  * <Button label="Edit" icon={<PencilIcon />} />
  * <Button label="Messages" endContent={<Badge label={3} />} />
  * <Button label="Edit" icon={<PencilIcon />} endContent={<Badge label="New" />} />
+ * <Button label="Sign in" variant="primary" width="100%" />
  * <Button label="Visit site" href="https://example.com" variant="primary" />
  * <Button label="Open in new tab" href="https://example.com" target="_blank" rel="noopener noreferrer" />
  * ```
@@ -563,6 +577,7 @@ export function Button({
   clickAction,
   icon,
   isIconOnly = false,
+  width,
   children,
   endContent,
   tooltip,
@@ -676,6 +691,7 @@ export function Button({
       (buttonGroup.orientation === 'horizontal'
         ? groupStyles.onSolidHorizontal
         : groupStyles.onSolidVertical),
+    width != null && dynamicStyles.width(width),
     xstyle,
   );
 
