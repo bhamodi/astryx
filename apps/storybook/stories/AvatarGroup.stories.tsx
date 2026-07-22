@@ -174,6 +174,38 @@ export const LargeOverflowCount: Story = {
   ),
 };
 
+/**
+ * Short counts stay a circle; long counts grow into a pill.
+ *
+ * The indicator uses a minimum width equal to the avatar size, so a small
+ * `+5` renders as a circle, while a wide `+4912` grows horizontally into a
+ * stadium/pill so the number always fits with comfortable padding.
+ */
+export const CircleToPill: Story = {
+  render: () => (
+    <div {...stylex.props(storyStyles.storyWrapper)}>
+      <div>
+        <h4 {...stylex.props(storyStyles.heading)}>Short count (circle)</h4>
+        <AvatarGroup size="medium">
+          {USERS.slice(0, 3).map(u => (
+            <Avatar key={u.key} src={u.src} name={u.name} />
+          ))}
+          <AvatarGroupOverflow count={5} />
+        </AvatarGroup>
+      </div>
+      <div>
+        <h4 {...stylex.props(storyStyles.heading)}>Long count (pill)</h4>
+        <AvatarGroup size="medium">
+          {USERS.slice(0, 3).map(u => (
+            <Avatar key={u.key} src={u.src} name={u.name} />
+          ))}
+          <AvatarGroupOverflow count={4912} />
+        </AvatarGroup>
+      </div>
+    </div>
+  ),
+};
+
 /** Zero overflow count edge case. */
 export const ZeroOverflow: Story = {
   render: () => (
